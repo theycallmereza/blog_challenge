@@ -1,0 +1,11 @@
+django < 4.3
+django-silk
+djangorestframework
+djangorestframework-simplejwt
+cryptography
+drf-yasg
+factory-boy
+Pillow
+pip-tools
+psycopg2
+django-redis
