@@ -1,5 +1,7 @@
+import re
 from django.db import models
 from django.contrib.auth.models import User
+from posts.const import WORD_PER_MIN
 
 
 class ExcludeFakesModelManager(models.Manager):
@@ -27,12 +29,22 @@ class Post(BaseTimeAbstractModel):
     text = models.TextField()
     avg_rate = models.DecimalField(max_digits=2, decimal_places=1, default=0)
     avg_user_count = models.PositiveIntegerField(default=0)
+    word_count = models.IntegerField(null=True, blank=True)
 
     class Meta:
-        ordering = ["created_at"]
+        ordering = ["-created_at"]
 
     def __str__(self):
         return self.title
+
+    def set_word_count(self):
+        pattern = re.compile(r"\b\S+\b")
+        word_list = re.findall(pattern, self.text)
+        self.word_count = len(word_list)
+        self.save()
+
+    def get_fastest_read_time(self):
+        return round(self.word_count / WORD_PER_MIN, 2)
 
 
 class Review(BaseTimeAbstractModel):
@@ -59,7 +71,7 @@ class Review(BaseTimeAbstractModel):
 
     class Meta:
         unique_together = ["user", "post"]
-        ordering = ["created_at"]
+        ordering = ["-created_at"]
 
     def __str__(self):
         return f"{self.user.username} - {self.post.title} - {str(self.rate)}"

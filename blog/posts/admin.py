@@ -7,7 +7,7 @@ class PostAdmin(admin.ModelAdmin):
 
 
 class ReviewAdmin(admin.ModelAdmin):
-    pass
+    raw_id_fields = ("post", "user")
 
 
 admin.site.register(Post, PostAdmin)
