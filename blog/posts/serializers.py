@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from posts.models import Post
+from posts.models import Post, Review
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -40,4 +40,12 @@ class ListPostSerializer(serializers.ModelSerializer):
             "avg_rate",
             "avg_user_count",
             "current_user_rate",
+        )
+
+
+class AddRateByUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = (
+            "rate",
         )
