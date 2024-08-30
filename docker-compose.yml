@@ -37,7 +37,36 @@ services:
     command: [ "redis-server", "--requirepass", "${REDIS_PASSWORD}" ]
     restart: unless-stopped
 
+  blog_celery:
+    build: .
+    working_dir: /app/blog
+    command: [ "celery", "-A", "blog", "worker", "-l", "info", "--autoscale", "4,2" ]
+    restart: unless-stopped
+    volumes:
+      - .:/app
+    depends_on:
+      - blog_db
+      - blog_redis
+    env_file: .env
+
+  blog_beat:
+    build: .
+    working_dir: /app/blog
+    command: [ "celery", "-A", "blog", "beat", "-l", "info", "-s", "/app/scheduler.db", "--pidfile=/app/beat.pid" ]
+    restart: unless-stopped
+    volumes:
+      - .:/app
+      - type: volume
+        source: beat_scheduler
+        target: /app
+    depends_on:
+      - blog_db
+      - blog_redis
+    env_file: .env
+
 volumes:
+  beat_scheduler:
+    name: blog_beat
   postgres_db:
     name: blog_db
 

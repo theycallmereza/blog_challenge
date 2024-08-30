@@ -48,8 +48,8 @@ INSTALLED_APPS = [
 
     # Third Party
     "rest_framework",
-    "rest_framework_simplejwt",
     "drf_yasg",
+    "celery"
 ]
 
 MIDDLEWARE = [
@@ -147,9 +147,10 @@ CACHES = {
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
 }
 
 # Config Django Silk in Development
@@ -157,7 +158,10 @@ if DEBUG:
     MIDDLEWARE.append("silk.middleware.SilkyMiddleware")
     INSTALLED_APPS.append("silk")
 
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
-    "REFRESH_TOKEN_LIFETIME": timedelta(weeks=1),
-}
+# CELERY
+CELERY_BROKER_URL = "redis://:{}@{}:6379".format(REDIS_PASSWORD, REDIS_HOST)
+CELERY_RESULT_BACKEND = "redis://:{}@{}:6379".format(REDIS_PASSWORD, REDIS_HOST)
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "Asia/Tehran"
