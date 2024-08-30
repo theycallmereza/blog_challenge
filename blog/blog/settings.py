@@ -47,12 +47,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Local
-    "posts",
+    "posts.apps.PostsConfig",
 
     # Third Party
     "rest_framework",
     "drf_yasg",
-    "celery"
+    "celery",
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [

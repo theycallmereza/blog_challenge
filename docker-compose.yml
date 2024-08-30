@@ -52,7 +52,7 @@ services:
   blog_beat:
     build: .
     working_dir: /app/blog
-    command: [ "celery", "-A", "blog", "beat", "-l", "info", "-s", "/app/scheduler.db", "--pidfile=/app/beat.pid" ]
+    command: [ "celery", "-A", "blog", "beat", "-l", "info", "--scheduler", "django_celery_beat.schedulers:DatabaseScheduler" ]
     restart: unless-stopped
     volumes:
       - .:/app

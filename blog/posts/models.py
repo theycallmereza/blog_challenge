@@ -31,6 +31,9 @@ class Post(BaseTimeAbstractModel):
     class Meta:
         ordering = ["created_at"]
 
+    def __str__(self):
+        return self.title
+
 
 class Review(BaseTimeAbstractModel):
     RATE_CHOICES = (
@@ -57,3 +60,6 @@ class Review(BaseTimeAbstractModel):
     class Meta:
         unique_together = ["user", "post"]
         ordering = ["created_at"]
+
+    def __str__(self):
+        return f"{self.user.username} - {self.post.title} - {str(self.rate)}"

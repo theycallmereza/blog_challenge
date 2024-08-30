@@ -30,10 +30,15 @@ api_docs_urls = [
     ),
 ]
 
+api_endpoints = [
+    path('posts/', include("posts.urls")),
+]
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('posts/', include("posts.urls")),
+    path("api/", include(api_endpoints))
 ]
 
 if settings.DEBUG:
     urlpatterns += api_docs_urls
+    urlpatterns += [path('silk/', include('silk.urls', namespace='silk'))]

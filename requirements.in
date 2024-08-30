@@ -1,7 +1,9 @@
+bpython
 celery[redis]
 django < 4.3
 django-silk
 djangorestframework
+django_celery_beat
 drf-yasg
 factory-boy
 Pillow

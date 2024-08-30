@@ -12,10 +12,20 @@ autopep8==2.3.1
     # via django-silk
 billiard==4.2.0
     # via celery
+blessed==1.20.0
+    # via curtsies
+bpython==0.24
+    # via -r requirements.in
 build==1.2.1
     # via pip-tools
 celery[redis]==5.4.0
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   django-celery-beat
+certifi==2024.8.30
+    # via requests
+charset-normalizer==3.3.2
+    # via requests
 click==8.1.7
     # via
     #   celery
@@ -29,17 +39,31 @@ click-plugins==1.1.1
     # via celery
 click-repl==0.3.0
     # via celery
+cron-descriptor==1.4.5
+    # via django-celery-beat
+curtsies==0.4.2
+    # via bpython
+cwcwidth==0.1.9
+    # via
+    #   bpython
+    #   curtsies
 django==4.2.15
     # via
     #   -r requirements.in
+    #   django-celery-beat
     #   django-redis
     #   django-silk
+    #   django-timezone-field
     #   djangorestframework
     #   drf-yasg
+django-celery-beat==2.7.0
+    # via -r requirements.in
 django-redis==5.4.0
     # via -r requirements.in
 django-silk==5.2.0
     # via -r requirements.in
+django-timezone-field==7.0
+    # via django-celery-beat
 djangorestframework==3.15.2
     # via
     #   -r requirements.in
@@ -52,6 +76,10 @@ faker==27.0.0
     # via factory-boy
 gprof2dot==2024.6.6
     # via django-silk
+greenlet==3.0.3
+    # via bpython
+idna==3.8
+    # via requests
 inflection==0.5.1
     # via drf-yasg
 kombu==5.4.0
@@ -70,39 +98,56 @@ psycopg2==2.9.9
     # via -r requirements.in
 pycodestyle==2.12.1
     # via autopep8
+pygments==2.18.0
+    # via bpython
 pyproject-hooks==1.1.0
     # via
     #   build
     #   pip-tools
+python-crontab==3.2.0
+    # via django-celery-beat
 python-dateutil==2.9.0.post0
     # via
     #   celery
     #   faker
+    #   python-crontab
 pytz==2024.1
     # via drf-yasg
+pyxdg==0.28
+    # via bpython
 pyyaml==6.0.2
     # via drf-yasg
 redis==5.0.8
     # via
     #   celery
     #   django-redis
+requests==2.32.3
+    # via bpython
 six==1.16.0
-    # via python-dateutil
+    # via
+    #   blessed
+    #   python-dateutil
 sqlparse==0.5.1
     # via
     #   django
     #   django-silk
 tzdata==2024.1
-    # via celery
+    # via
+    #   celery
+    #   django-celery-beat
 uritemplate==4.1.1
     # via drf-yasg
+urllib3==2.2.2
+    # via requests
 vine==5.1.0
     # via
     #   amqp
     #   celery
     #   kombu
 wcwidth==0.2.13
-    # via prompt-toolkit
+    # via
+    #   blessed
+    #   prompt-toolkit
 wheel==0.44.0
     # via pip-tools
 
